@@ -1,0 +1,53 @@
+name: Contract Tests — Frontend
+
+on:
+  push:
+    branches: [main, "demo/**"]
+    paths:
+      - "src/frontend/src/api/**"
+      - "src/frontend/src/types.ts"
+      - "tests/contracts/**"
+      - ".github/workflows/contract-frontend.yml"
+  pull_request:
+    paths:
+      - "src/frontend/src/api/**"
+      - "src/frontend/src/types.ts"
+      - "tests/contracts/**"
+
+jobs:
+  contract-frontend:
+    name: Validate frontend API client against OpenAPI schema (Prism mock)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: tests/contracts/package-lock.json
+
+      - name: Install contract test deps
+        run: npm ci
+        working-directory: tests/contracts
+
+      - name: Start Prism mock server
+        run: |
+          npx @stoplight/prism-cli mock openapi.yaml --port 4010 --cors &
+          sleep 3
+        working-directory: tests/contracts
+
+      - name: Wait for Prism
+        run: |
+          for i in $(seq 1 20); do
+            curl -sf http://localhost:4010/api/health && break
+            sleep 1
+          done
+
+      - name: Run frontend contract tests
+        run: npx vitest run frontend-tests
+        working-directory: tests/contracts
+        env:
+          PRISM_URL: http://localhost:4010

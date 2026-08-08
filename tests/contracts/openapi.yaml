@@ -1,0 +1,273 @@
+openapi: "3.1.0"
+info:
+  title: TalkVote API
+  version: "1.0.0"
+  description: Conference talk voting board API
+
+servers:
+  - url: "{baseUrl}"
+    variables:
+      baseUrl:
+        default: "http://localhost:3001"
+        description: Backend base URL
+
+paths:
+  /api/health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, timestamp]
+                properties:
+                  status:
+                    type: string
+                    enum: [ok]
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  /api/talks:
+    get:
+      operationId: getTalks
+      summary: List talks
+      parameters:
+        - name: track
+          in: query
+          schema:
+            type: string
+            enum: [frontend, backend, qa, devops]
+        - name: level
+          in: query
+          schema:
+            type: string
+            enum: [beginner, intermediate, advanced]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [submitted, approved, rejected]
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [votes, createdAt]
+      responses:
+        "200":
+          description: List of talks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Talk"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+    post:
+      operationId: createTalk
+      summary: Submit a new talk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTalkInput"
+      responses:
+        "201":
+          description: Talk created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Talk"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+  /api/talks/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+
+    get:
+      operationId: getTalk
+      summary: Get talk by ID
+      responses:
+        "200":
+          description: Talk details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Talk"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/talks/{id}/vote:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+
+    post:
+      operationId: voteTalk
+      summary: Vote for a talk
+      parameters:
+        - name: X-Voter-Id
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Vote registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Talk"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          description: Already voted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/talks/{id}/status:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+
+    patch:
+      operationId: updateTalkStatus
+      summary: Update talk status (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [approved, rejected]
+      responses:
+        "200":
+          description: Status updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Talk"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  schemas:
+    Talk:
+      type: object
+      required:
+        - id
+        - title
+        - speakerName
+        - abstract
+        - track
+        - level
+        - status
+        - votes
+        - createdAt
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        speakerName:
+          type: string
+        abstract:
+          type: string
+        track:
+          type: string
+          enum: [frontend, backend, qa, devops]
+        level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        status:
+          type: string
+          enum: [submitted, approved, rejected]
+        votes:
+          type: integer
+          minimum: 0
+        createdAt:
+          type: string
+          format: date-time
+
+    CreateTalkInput:
+      type: object
+      required:
+        - title
+        - speakerName
+        - abstract
+        - track
+        - level
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        speakerName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        abstract:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        track:
+          type: string
+          enum: [frontend, backend, qa, devops]
+        level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"

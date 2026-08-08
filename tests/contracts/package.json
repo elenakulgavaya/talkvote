@@ -1,0 +1,14 @@
+{
+  "name": "talkvote-contracts",
+  "version": "1.0.0",
+  "description": "Contract tests for TalkVote — validates frontend API client against OpenAPI schema via Prism mock",
+  "scripts": {
+    "test:frontend": "vitest run frontend-tests",
+    "prism:mock": "prism mock openapi.yaml --port 4010"
+  },
+  "devDependencies": {
+    "@stoplight/prism-cli": "^5.10.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
