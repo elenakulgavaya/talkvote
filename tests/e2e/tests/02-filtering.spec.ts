@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 
+const waitForFilter = (page: Parameters<typeof test>[1] extends (args: { page: infer P }) => unknown ? P : never) =>
+  page.waitForResponse(r => r.url().includes("/api/talks") && r.status() === 200);
+
 test.describe("Filtering", () => {
   test("filters by track and shows only matching talks", async ({ page }) => {
     await page.goto("./");
@@ -7,8 +10,10 @@ test.describe("Filtering", () => {
 
     const totalCount = await page.locator("article").count();
 
-    await page.selectOption('[data-testid="filter-track"]', "qa");
-    await page.waitForTimeout(300);
+    await Promise.all([
+      waitForFilter(page),
+      page.selectOption('[data-testid="filter-track"]', "qa"),
+    ]);
 
     const filteredCount = await page.locator("article").count();
     expect(filteredCount).toBeGreaterThan(0);
@@ -26,8 +31,10 @@ test.describe("Filtering", () => {
     await page.goto("./");
     await page.waitForSelector("article");
 
-    await page.selectOption('[data-testid="filter-level"]', "beginner");
-    await page.waitForTimeout(300);
+    await Promise.all([
+      waitForFilter(page),
+      page.selectOption('[data-testid="filter-level"]', "beginner"),
+    ]);
 
     const cards = page.locator("article");
     const count = await cards.count();
@@ -41,8 +48,10 @@ test.describe("Filtering", () => {
     await page.goto("./");
     await page.waitForSelector("article");
 
-    await page.selectOption('[data-testid="filter-status"]', "approved");
-    await page.waitForTimeout(300);
+    await Promise.all([
+      waitForFilter(page),
+      page.selectOption('[data-testid="filter-status"]', "approved"),
+    ]);
 
     const cards = page.locator("article");
     const count = await cards.count();
@@ -56,9 +65,14 @@ test.describe("Filtering", () => {
     await page.goto("./");
     await page.waitForSelector("article");
 
-    await page.selectOption('[data-testid="filter-track"]', "devops");
-    await page.selectOption('[data-testid="filter-level"]', "beginner");
-    await page.waitForTimeout(300);
+    await Promise.all([
+      waitForFilter(page),
+      page.selectOption('[data-testid="filter-track"]', "devops"),
+    ]);
+    await Promise.all([
+      waitForFilter(page),
+      page.selectOption('[data-testid="filter-level"]', "beginner"),
+    ]);
 
     // devops + beginner has no seed data
     await expect(page.locator("text=No talks found")).toBeVisible();

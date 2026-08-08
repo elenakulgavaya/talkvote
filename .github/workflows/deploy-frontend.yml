@@ -42,6 +42,10 @@ jobs:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           VITE_BASE_URL: /talkvote/
 
+      - name: Copy index.html to 404.html for SPA routing
+        run: cp dist/index.html dist/404.html
+        working-directory: src/frontend
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
