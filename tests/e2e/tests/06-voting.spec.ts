@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Voting", () => {
   test("vote button increments vote count", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     // Open the first talk
@@ -21,7 +21,7 @@ test.describe("Voting", () => {
   });
 
   test("vote button is disabled after voting (within same session)", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     await page.locator("article").first().locator("a[href*='/talks/']").last().click();
@@ -32,7 +32,7 @@ test.describe("Voting", () => {
   });
 
   test("reload page still shows Already voted state", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     await page.locator("article").first().locator("a[href*='/talks/']").last().click();

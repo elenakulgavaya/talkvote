@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Talk detail page", () => {
   test("shows correct title, speaker, abstract, and vote count", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     const firstCard = page.locator("article").first();
@@ -18,7 +18,7 @@ test.describe("Talk detail page", () => {
   });
 
   test("back link returns to list", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     await page.locator("article").first().locator("a[href*='/talks/']").last().click();

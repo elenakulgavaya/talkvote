@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Submit validation", () => {
   test("shows browser validation when required fields are empty", async ({ page }) => {
-    await page.goto("/submit");
+    await page.goto("./submit");
 
     // Click submit without filling any fields
     await page.click('[data-testid="submit-button"]');
@@ -13,7 +13,7 @@ test.describe("Submit validation", () => {
   });
 
   test("clears field error when user corrects the value", async ({ page }) => {
-    await page.goto("/submit");
+    await page.goto("./submit");
 
     // Fill all required fields except abstract to trigger a short submission
     await page.fill('[data-testid="input-title"]', "T");

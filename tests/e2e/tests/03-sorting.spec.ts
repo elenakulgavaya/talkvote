@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Sorting", () => {
   test("sorted by votes shows highest-voted talk first", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     // Default sort is by votes (highest first)

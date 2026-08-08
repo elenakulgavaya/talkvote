@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Filtering", () => {
   test("filters by track and shows only matching talks", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     const totalCount = await page.locator("article").count();
@@ -23,7 +23,7 @@ test.describe("Filtering", () => {
   });
 
   test("filters by level", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     await page.selectOption('[data-testid="filter-level"]', "beginner");
@@ -38,7 +38,7 @@ test.describe("Filtering", () => {
   });
 
   test("filters by status", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     await page.selectOption('[data-testid="filter-status"]', "approved");
@@ -53,7 +53,7 @@ test.describe("Filtering", () => {
   });
 
   test("shows no results message when filters match nothing", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("./");
     await page.waitForSelector("article");
 
     await page.selectOption('[data-testid="filter-track"]', "devops");
