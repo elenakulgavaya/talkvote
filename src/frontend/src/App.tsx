@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import { TalksList } from "./pages/TalksList";
 import { TalkDetail } from "./pages/TalkDetail";
 import { SubmitTalk } from "./pages/SubmitTalk";
@@ -6,7 +6,7 @@ import { Admin } from "./pages/Admin";
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <nav
         style={{
           borderBottom: "1px solid #e5e7eb",
@@ -41,6 +41,6 @@ export default function App() {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

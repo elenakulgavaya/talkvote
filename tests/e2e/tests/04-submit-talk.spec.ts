@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Submit talk", () => {
   test("submits a valid talk and redirects to detail page", async ({ page }) => {
-    await page.goto("./submit");
+    await page.goto("./#/submit");
     await expect(page.locator("h1")).toContainText("Submit a Talk");
 
     await page.fill('[data-testid="input-title"]', "E2E Test Talk");
@@ -19,7 +19,7 @@ test.describe("Submit talk", () => {
   });
 
   test("new talk appears on the list with status submitted", async ({ page }) => {
-    await page.goto("./submit");
+    await page.goto("./#/submit");
 
     const uniqueTitle = `Auto Talk ${Date.now()}`;
     await page.fill('[data-testid="input-title"]', uniqueTitle);
