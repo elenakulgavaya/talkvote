@@ -1,0 +1,44 @@
+name: E2E Tests (Python)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  e2e-python:
+    name: Playwright E2E (Python)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: tests/e2e/python/requirements.txt
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+        working-directory: tests/e2e/python
+
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps chromium
+        working-directory: tests/e2e/python
+
+      - name: Run tests
+        run: python -m pytest --tb=short -q
+        working-directory: tests/e2e/python
+        env:
+          PLAYWRIGHT_FRONTEND_URL: ${{ vars.PLAYWRIGHT_FRONTEND_URL }}
+          PLAYWRIGHT_BACKEND_URL: ${{ vars.PLAYWRIGHT_BACKEND_URL }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pytest-results
+          path: tests/e2e/python/.pytest_results/
+          retention-days: 7
