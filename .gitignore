@@ -6,6 +6,11 @@ src/frontend/dist/
 tests/e2e/playwright-report/
 tests/e2e/test-results/
 
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
 # Logs
 logs
 *.log
