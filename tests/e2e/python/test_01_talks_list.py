@@ -6,6 +6,7 @@ from playwright.sync_api import Page, expect
 def test_displays_talks_list_with_seed_data(page: Page):
     page.goto("./")
     expect(page.locator("h1")).to_contain_text("TalkVote")
+    page.wait_for_selector("article")
     cards = page.locator("article")
     assert cards.count() >= 8
 

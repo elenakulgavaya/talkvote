@@ -4,6 +4,7 @@ test.describe("Talks list", () => {
   test("displays talks list with seed data", async ({ page }) => {
     await page.goto("./");
     await expect(page.locator("h1")).toContainText("TalkVote");
+    await page.waitForSelector("article");
     const cards = page.locator("article");
     expect(await cards.count()).toBeGreaterThanOrEqual(8);
   });
