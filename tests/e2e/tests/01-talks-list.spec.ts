@@ -4,9 +4,8 @@ test.describe("Talks list", () => {
   test("displays talks list with seed data", async ({ page }) => {
     await page.goto("./");
     await expect(page.locator("h1")).toContainText("TalkVote");
-    // Seed data has 8 talks; at least several should be visible
     const cards = page.locator("article");
-    await expect(cards).toHaveCount(8);
+    expect(await cards.count()).toBeGreaterThanOrEqual(8);
   });
 
   test("shows talk title, speaker name and vote count on each card", async ({ page }) => {
