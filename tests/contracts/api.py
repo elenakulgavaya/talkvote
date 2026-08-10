@@ -12,7 +12,7 @@ from surety.sdk import dates
 from surety.sdk.fakeable import fake
 
 
-SERVICE = 'api'
+SERVICE = 'api/'
 BASE_URL = Cfg.App.api_url
 
 
@@ -23,10 +23,17 @@ class Level(Enum):
     Beginner = 'beginner'
 
 
+class Track(Enum):
+    Frontend = 'frontend'
+    Backend = 'backend'
+    QA = 'qa'
+    DevOps = 'devops'
+
+
 class Status(Enum):
     Approved = 'approved'
     Rejected = 'rejected'
-    Pending = 'pending'
+    Submitted = 'submitted'
 
 
 class Talk(Dictionary):
@@ -37,7 +44,7 @@ class Talk(Dictionary):
     SpeakerName = String(name='speakerName')
     Status = Status(name='status')
     Title = String(name='title', fake_as=fake.sentence)
-    Track = String(name='track')
+    Track = Track(name='track')
     Votes = Int(name='votes')
 
 
@@ -52,7 +59,7 @@ class SubmitTalkRequest(Talk):
     Level = Level(name='level')
     SpeakerName = String(name='speakerName')
     Title = String(name='title', fake_as=fake.sentence)
-    Track = String(name='track')
+    Track = Track(name='track')
 
 
 class SubmitTalkResponse(Talk):
@@ -61,6 +68,10 @@ class SubmitTalkResponse(Talk):
 
 class GetTalkResponse(Talk):
     pass
+
+
+class ErrorResponse(Dictionary):
+    Error = String(name='error', fake_as=fake.sentence)
 
 
 class TalkPathParams(Dictionary):
@@ -81,34 +92,39 @@ class UpdateStatusResponse(Talk):
 
 class GetTalks(ApiContract):
     method = HttpMethod.GET
-    url = '/talks'
+    url = 'talks'
     resp_body = GetTalksResponse
 
 
 class SubmitTalk(ApiContract):
     method = HttpMethod.POST
-    url = '/talks'
+    url = 'talks'
     req_body = SubmitTalkRequest
     resp_body = SubmitTalkResponse
 
 
 class GetTalk(ApiContract):
     method = HttpMethod.GET
-    url = '/talks/{id}'
+    url = 'talks/{id}'
     path_params = TalkPathParams
     resp_body = GetTalkResponse
 
 
 class Vote(ApiContract):
     method = HttpMethod.POST
-    url = '/talks/{id}/vote'
+    url = 'talks/{id}/vote'
     path_params = TalkPathParams
     resp_body = VoteResponse
 
 
 class UpdateStatus(ApiContract):
     method = HttpMethod.PATCH
-    url = '/talks/{id}/status'
+    url = 'talks/{id}/status'
     path_params = TalkPathParams
     req_body = UpdateStatusRequest
     resp_body = UpdateStatusResponse
+
+
+class Clear(ApiContract):
+    method = HttpMethod.POST
+    url = 'clear'
