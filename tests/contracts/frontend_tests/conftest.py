@@ -42,7 +42,7 @@ def servers():
         p = subprocess.Popen(
             ["npx", "vite", "src/frontend"],
             cwd=PROJECT_ROOT,
-            env={**os.environ, "MOCK_SERVER_URL": "http://localhost:1080/mockserver/"},
+            env={**os.environ, "VITE_API_URL": "http://localhost:1080/mockserver"},
         )
         procs.append(p)
         _wait_for(FRONTEND_URL)
