@@ -43,7 +43,7 @@ jobs:
         run: python -m playwright install --with-deps chromium
 
       - name: Run contract tests
-        run: python -m pytest --tb=short -q
+        run: python -m pytest --tb=short -q --junit-xml=.pytest_results/results.xml
         working-directory: tests/contracts/frontend_tests
 
       - uses: actions/upload-artifact@v4

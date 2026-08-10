@@ -48,6 +48,7 @@ def test_back_link_returns_to_list(page: Page):
     )
     page.locator("article").first.locator("a[href*='/talks/']").last.click()
     page.wait_for_url(re.compile(r"/talks/.+"))
+    page.wait_for_selector("text=← Back to list")
     GetTalks.reply(reset=True, times=2,
                    body=GetTalksResponse().with_values(talks))
     page.click("text=← Back to list")
