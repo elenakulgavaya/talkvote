@@ -54,7 +54,7 @@ class GetTalksResponse(Array):
         super().__init__(field=Talk)
 
 
-class SubmitTalkRequest(Talk):
+class SubmitTalkRequest(Dictionary):
     Abstract = String(name='abstract', fake_as=fake.sentences)
     Level = Level(name='level')
     SpeakerName = String(name='speakerName')
@@ -82,7 +82,7 @@ class VoteResponse(Talk):
     pass
 
 
-class UpdateStatusRequest(Talk):
+class UpdateStatusRequest(Dictionary):
     Status = Status(name='status')
 
 
