@@ -1,0 +1,6 @@
+MockServer:
+  host: localhost
+  port: 1080
+App:
+  url: http://localhost:5173
+  api_url: http://localhost:3001
