@@ -32,9 +32,9 @@ def base_url() -> str:
 
 @pytest.fixture(scope="session", autouse=True)
 def servers():
-    if os.environ.get("PLAYWRIGHT_FRONTEND_URL"):
-        yield
-        return
+    # if os.environ.get("PLAYWRIGHT_FRONTEND_URL"):
+    #     yield
+    #     return
 
     procs = []
 
