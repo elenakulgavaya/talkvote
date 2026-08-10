@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import talksRouter from "./routes/talks.js";
 import healthRouter from "./routes/health.js";
+import { clearStore } from "./data/store.js";
 
 export function createApp(frontendOrigin?: string) {
   const app = express();
@@ -18,6 +19,10 @@ export function createApp(frontendOrigin?: string) {
 
   app.use("/api/health", healthRouter);
   app.use("/api/talks", talksRouter);
+  app.post("/api/clear", (_req, res) => {
+    clearStore();
+    res.json({ status: "ok" });
+  });
 
   return app;
 }

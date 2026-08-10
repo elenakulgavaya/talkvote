@@ -1,7 +1,8 @@
 import { v4 as uuid } from "uuid";
 import type { Talk } from "../types.js";
 
-const talks: Talk[] = [
+function createSeedData(): Talk[] {
+  return [
   {
     id: uuid(),
     title: "From E2E to Contract Tests: A Practical Migration Path",
@@ -98,8 +99,10 @@ const talks: Talk[] = [
     votes: 11,
     createdAt: new Date("2025-09-08T09:30:00Z").toISOString(),
   },
-];
+  ];
+}
 
+let talks: Talk[] = createSeedData();
 const voterLog = new Map<string, Set<string>>(); // talkId -> Set<voterId>
 
 export function getAllTalks(): Talk[] {
@@ -141,4 +144,9 @@ export function updateTalkStatus(talkId: string, status: "approved" | "rejected"
   if (!talk) return undefined;
   talk.status = status;
   return talk;
+}
+
+export function clearStore(): void {
+  talks.length = 0;
+  voterLog.clear();
 }
