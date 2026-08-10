@@ -1,0 +1,32 @@
+import re
+
+from playwright.sync_api import Page, expect
+
+from api import GetTalks, Talk, GetTalksResponse
+
+
+def test_talks_list_with_seed_data(page: Page):
+    GetTalks.reply(reset=True, times=2, body=GetTalksResponse().with_values([
+        Talk() for _ in range(8)
+    ]))
+    page.goto("./")
+    expect(page.locator("h1")).to_contain_text("TalkVote")
+    page.wait_for_selector("article")
+    cards = page.locator("article")
+    assert cards.count() == 8
+
+
+def test_title_speaker_and_vote_count_on_each_card(page: Page):
+    GetTalks.reply(reset=True, times=2)
+    page.goto("./")
+    first_card = page.locator("article").first
+    expect(first_card.locator("h2")).not_to_be_empty()
+    expect(first_card).to_contain_text("by")
+    expect(first_card).to_contain_text("👍")
+
+
+def test_navigate_to_submit_page_via_button(page: Page):
+    GetTalks.reply(reset=True, times=2)
+    page.goto("./")
+    page.click("text=Submit a talk")
+    expect(page).to_have_url(re.compile(r"/submit"))

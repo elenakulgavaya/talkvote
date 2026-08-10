@@ -1,0 +1,54 @@
+name: Contract Tests (Frontend)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  contract-frontend:
+    name: Frontend Contract Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start MockServer
+        run: docker run -d --rm -p 1080:1080 mockserver/mockserver
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: src/frontend/package-lock.json
+
+      - name: Install frontend deps
+        run: npm ci
+        working-directory: src/frontend
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: |
+            tests/contracts/frontend_tests/requirements.txt
+
+      - name: Install Python deps
+        run: |
+          pip install -r tests/contracts/frontend_tests/requirements.txt
+
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run contract tests
+        run: python -m pytest --tb=short -q --junit-xml=.pytest_results/results.xml
+        working-directory: tests/contracts/frontend_tests
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: contract-frontend-results
+          path: tests/contracts/frontend_tests/.pytest_results/
+          retention-days: 7

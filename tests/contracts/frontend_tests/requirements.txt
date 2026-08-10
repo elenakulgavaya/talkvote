@@ -1,0 +1,8 @@
+surety==0.0.14
+surety-api==0.0.4
+surety-diff==0.0.3
+surety-config==0.0.4
+requests==2.34.2
+pytest==9.0.3
+pytest-playwright==0.8.0
+playwright==1.62.0
