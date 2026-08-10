@@ -12,9 +12,9 @@ def test_filters_by_track_and_shows_only_matching_talks(page: Page):
     total_count = page.locator("article").count()
 
     with page.expect_response(lambda r: "/api/talks" in r.url and r.status == 200):
-        GetTalks.reply(body=GetTalksResponse().with_values([
+        GetTalks.reply(reset=True, body=GetTalksResponse().with_values([
             Talk().with_values({Talk.Track.name: 'qa'})
-        ]))
+        ]), params={'track': 'qa'})
         page.select_option('[data-testid="filter-track"]', "qa")
 
     filtered_count = page.locator("article").count()
