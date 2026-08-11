@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    paths:
+      - 'tests/contracts/frontend_tests/**'
+      - 'tests/contracts/api.py'
+      - 'src/frontend/**'
 
 jobs:
   contract-frontend:
