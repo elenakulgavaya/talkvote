@@ -18,6 +18,7 @@ export function Admin() {
   }
 
   useEffect(() => {
+    document.title = "Admin · TalkVote";
     loadTalks();
   }, []);
 

@@ -29,6 +29,7 @@ export function TalkDetail() {
       .then((t) => {
         setTalk(t);
         setVoted(hasVoted(id));
+        document.title = `${t.title} · TalkVote`;
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));

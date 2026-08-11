@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api/client";
 import type { CreateTalkInput, ApiError } from "../types";
@@ -13,6 +13,10 @@ const INITIAL: CreateTalkInput = {
 
 export function SubmitTalk() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Submit a Talk · TalkVote";
+  }, []);
   const [form, setForm] = useState<CreateTalkInput>(INITIAL);
   const [submitting, setSubmitting] = useState(false);
   const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});

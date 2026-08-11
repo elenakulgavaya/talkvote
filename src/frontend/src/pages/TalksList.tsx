@@ -18,6 +18,10 @@ export function TalksList() {
   const [sort, setSort] = useState("votes");
 
   useEffect(() => {
+    document.title = "TalkVote";
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     setError(null);
     api
