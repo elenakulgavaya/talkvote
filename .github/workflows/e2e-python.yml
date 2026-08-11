@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    paths:
+      - 'tests/e2e/python/**'
 
 jobs:
   e2e-python:
