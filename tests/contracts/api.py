@@ -41,7 +41,7 @@ class Talk(Dictionary):
     CreatedAt = DateTime(name='createdAt')
     Id = Uuid(name='id')
     Level = Level(name='level')
-    SpeakerName = String(name='speakerName')
+    SpeakerName = String(name='speaker')
     Status = Status(name='status')
     Title = String(name='title', fake_as=fake.sentence)
     Track = Track(name='track')
@@ -57,7 +57,7 @@ class GetTalksResponse(Array):
 class SubmitTalkRequest(Dictionary):
     Abstract = String(name='abstract', fake_as=fake.sentences)
     Level = Level(name='level')
-    SpeakerName = String(name='speakerName')
+    SpeakerName = String(name='speaker')
     Title = String(name='title', fake_as=fake.sentence)
     Track = Track(name='track')
 
