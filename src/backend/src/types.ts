@@ -1,7 +1,7 @@
 export interface Talk {
   id: string;
   title: string;
-  speakerName: string;
+  speaker: string;
   abstract: string;
   track: "frontend" | "backend" | "qa" | "devops";
   level: "beginner" | "intermediate" | "advanced";

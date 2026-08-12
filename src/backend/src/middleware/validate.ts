@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from "express";
 
 export const talkSchema = z.object({
   title: z.string().min(1, "title is required").max(200),
-  speakerName: z.string().min(1, "speakerName is required").max(100),
+  speaker: z.string().min(1, "speaker is required").max(100),
   abstract: z.string().min(1, "abstract is required").max(2000),
   track: z.enum(["frontend", "backend", "qa", "devops"]),
   level: z.enum(["beginner", "intermediate", "advanced"]),
