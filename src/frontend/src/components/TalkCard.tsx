@@ -82,7 +82,7 @@ export function TalkCard({ talk }: Props) {
       </Link>
 
       <p style={{ margin: 0, fontSize: "0.875rem", color: "#4b5563" }}>
-        by <strong>{talk.speakerName}</strong>
+        by <strong>{talk.speaker}</strong>
       </p>
 
       <p

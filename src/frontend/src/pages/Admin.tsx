@@ -64,7 +64,7 @@ export function Admin() {
               <div style={{ flex: 1 }}>
                 <h2 style={{ margin: "0 0 0.25rem", fontSize: "1rem" }}>{talk.title}</h2>
                 <p style={{ margin: "0 0 0.5rem", fontSize: "0.875rem", color: "#4b5563" }}>
-                  by <strong>{talk.speakerName}</strong> · {talk.track} · {talk.level}
+                  by <strong>{talk.speaker}</strong> · {talk.track} · {talk.level}
                 </p>
                 <p style={{ margin: 0, fontSize: "0.875rem", color: "#6b7280" }}>{talk.abstract}</p>
               </div>
