@@ -5,7 +5,7 @@ import type { CreateTalkInput, ApiError } from "../types";
 
 const INITIAL: CreateTalkInput = {
   title: "",
-  speakerName: "",
+  speaker: "",
   abstract: "",
   track: "frontend",
   level: "beginner",
@@ -89,12 +89,12 @@ export function SubmitTalk() {
           Speaker Name *
           <input
             style={fieldStyle}
-            value={form.speakerName}
-            onChange={(e) => set("speakerName", e.target.value)}
+            value={form.speaker}
+            onChange={(e) => set("speaker", e.target.value)}
             required
             data-testid="input-speakerName"
           />
-          {serverErrors.speakerName?.map((e) => <span key={e} style={{ color: "#ef4444", fontSize: "0.75rem" }}>{e}</span>)}
+          {serverErrors.speaker?.map((e) => <span key={e} style={{ color: "#ef4444", fontSize: "0.75rem" }}>{e}</span>)}
         </label>
 
         <label style={labelStyle}>

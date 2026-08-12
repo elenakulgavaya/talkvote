@@ -100,7 +100,7 @@ export function TalkDetail() {
 
         <h1 style={{ margin: "0 0 0.5rem" }}>{talk.title}</h1>
         <p style={{ margin: "0 0 1.5rem", color: "#4b5563" }}>
-          by <strong>{talk.speakerName}</strong>
+          by <strong>{talk.speaker}</strong>
         </p>
 
         <p style={{ lineHeight: 1.7, color: "#374151" }}>{talk.abstract}</p>
