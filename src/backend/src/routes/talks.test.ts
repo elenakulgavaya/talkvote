@@ -10,7 +10,7 @@ vi.mock("../data/store.js", async () => {
     {
       id: "talk-1",
       title: "Test Talk",
-      speakerName: "Speaker",
+      speaker: "Speaker",
       abstract: "Abstract",
       track: "qa",
       level: "beginner",
@@ -87,7 +87,7 @@ describe("POST /api/talks", () => {
   it("creates a new talk", async () => {
     const payload = {
       title: "New Talk",
-      speakerName: "New Speaker",
+      speaker: "New Speaker",
       abstract: "Some abstract about the talk",
       track: "backend",
       level: "advanced",
@@ -109,7 +109,7 @@ describe("POST /api/talks", () => {
   it("rejects invalid track value", async () => {
     const res = await request(app).post("/api/talks").send({
       title: "Talk",
-      speakerName: "Speaker",
+      speaker: "Speaker",
       abstract: "Abstract",
       track: "mobile",
       level: "beginner",

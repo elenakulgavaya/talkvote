@@ -6,7 +6,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "From E2E to Contract Tests: A Practical Migration Path",
-    speakerName: "Elena Kulgavaya",
+    speaker: "Elena Kulgavaya",
     abstract:
       "Learn how to migrate from slow, brittle E2E tests to fast, precise contract tests without throwing away your existing test coverage. We'll walk through a real-world example using a React frontend and Node.js backend.",
     track: "qa",
@@ -18,7 +18,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "Building Resilient Microservices with Circuit Breakers",
-    speakerName: "Alex Chen",
+    speaker: "Alex Chen",
     abstract:
       "Deep dive into circuit breaker patterns, bulkheads, and timeouts. We'll implement a full resilience stack in Node.js and show how each pattern affects system behaviour under failure.",
     track: "backend",
@@ -30,7 +30,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "React Query: Server State Done Right",
-    speakerName: "Maria Gonzalez",
+    speaker: "Maria Gonzalez",
     abstract:
       "Stop fighting with useEffect and useState for async data. Discover how React Query transforms server-state management with automatic caching, background refetching, and optimistic updates.",
     track: "frontend",
@@ -42,7 +42,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "GitOps in Practice: Kubernetes Deployments Without the Chaos",
-    speakerName: "Sam Patel",
+    speaker: "Sam Patel",
     abstract:
       "GitOps sounds simple but getting it right in production is another story. This talk covers real pitfalls teams hit when adopting Flux or Argo CD and how to avoid them.",
     track: "devops",
@@ -54,7 +54,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "TypeScript Generics: Beyond the Basics",
-    speakerName: "Jordan Kim",
+    speaker: "Jordan Kim",
     abstract:
       "Conditional types, mapped types, template literal types — TypeScript's type system is surprisingly powerful. Walk away with patterns you can use in production today.",
     track: "frontend",
@@ -66,7 +66,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "Testing Strategy for Beginners: Where to Start",
-    speakerName: "Priya Sharma",
+    speaker: "Priya Sharma",
     abstract:
       "New to testing? This beginner-friendly talk walks through the testing pyramid, when to write unit vs integration vs E2E tests, and the tools that make each level practical.",
     track: "qa",
@@ -78,7 +78,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "Zero-Downtime Deployments: Blue-Green and Canary in the Wild",
-    speakerName: "Chris Müller",
+    speaker: "Chris Müller",
     abstract:
       "Feature flags, traffic splitting, rollback strategies — deploying without downtime requires more than just two environments. This talk goes deep on the operational realities.",
     track: "devops",
@@ -90,7 +90,7 @@ function createSeedData(): Talk[] {
   {
     id: uuid(),
     title: "Accessible Components: Making React UIs for Everyone",
-    speakerName: "Aisha Okonkwo",
+    speaker: "Aisha Okonkwo",
     abstract:
       "ARIA, focus management, keyboard navigation — accessibility is not an afterthought. Learn practical techniques to build React components that work for all users from the start.",
     track: "frontend",
