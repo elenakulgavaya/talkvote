@@ -190,7 +190,6 @@ components:
         - track
         - level
         - status
-        - votes
         - createdAt
       properties:
         id:
@@ -210,9 +209,6 @@ components:
         status:
           type: string
           enum: [submitted, approved, rejected]
-        votes:
-          type: integer
-          minimum: 0
         createdAt:
           type: string
           format: date-time

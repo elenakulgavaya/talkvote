@@ -45,7 +45,6 @@ class Talk(Dictionary):
     Status = Status(name='status')
     Title = String(name='title', fake_as=fake.sentence)
     Track = Track(name='track')
-    Votes = Int(name='votes')
 
 
 class GetTalksResponse(Array):
