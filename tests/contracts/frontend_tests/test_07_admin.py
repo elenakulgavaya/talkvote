@@ -18,7 +18,7 @@ def page(browser: Browser, base_url: str):
 @pytest.fixture(scope="module")
 def admin_page(page: Page):
     talks = [api.Talk().with_values({
-        api.Talk.Status.name: api.Status.Submitted,
+        api.Talk.Status.name: api.Status.Pending,
     }) for _ in range(random.randint(3, 6))]
     api.GetTalks.reply(
         reset=True, times=2, body=api.GetTalksResponse().with_values(talks)
