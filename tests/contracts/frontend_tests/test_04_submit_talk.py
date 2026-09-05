@@ -18,7 +18,7 @@ def page(browser: Browser, base_url: str):
 @pytest.fixture(scope="module")
 def talk():
     return api.Talk().with_values({
-        api.Talk.Status.name: api.Status.Submitted
+        api.Talk.Status.name: api.Status.Pending
     })
 
 @pytest.fixture(scope="module")
