@@ -15,7 +15,7 @@ const router = Router();
 const querySchema = z.object({
   track: z.enum(["frontend", "backend", "qa", "devops"]).optional(),
   level: z.enum(["beginner", "intermediate", "advanced"]).optional(),
-  status: z.enum(["submitted", "approved", "rejected"]).optional(),
+  status: z.enum(["pending", "approved", "rejected"]).optional(),
   sort: z.enum(["votes", "createdAt"]).optional(),
 });
 
