@@ -11,7 +11,7 @@ export function Admin() {
   function loadTalks() {
     setLoading(true);
     api
-      .getTalks({ status: "submitted" })
+      .getTalks({ status: "pending" })
       .then(setTalks)
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));

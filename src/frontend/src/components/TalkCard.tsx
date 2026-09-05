@@ -13,7 +13,7 @@ const TRACK_COLORS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  submitted: "#6b7280",
+  pending: "#6b7280",
   approved: "#10b981",
   rejected: "#ef4444",
 };

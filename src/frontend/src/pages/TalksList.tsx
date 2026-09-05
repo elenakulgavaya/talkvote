@@ -6,7 +6,7 @@ import type { Talk } from "../types";
 
 const TRACKS = ["", "frontend", "backend", "qa", "devops"] as const;
 const LEVELS = ["", "beginner", "intermediate", "advanced"] as const;
-const STATUSES = ["", "submitted", "approved", "rejected"] as const;
+const STATUSES = ["", "pending", "approved", "rejected"] as const;
 
 export function TalksList() {
   const [talks, setTalks] = useState<Talk[]>([]);
