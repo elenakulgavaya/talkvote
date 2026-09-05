@@ -40,7 +40,7 @@ class SubmitTalk(ApiCaller):
                 ).strftime(
                     Pattern.DATETIME_DELIM_T_WITH_ZONE_PRECISED
                 ),
-                api.SubmitTalkResponse.Status.name: api.Status.Submitted,
+                api.SubmitTalkResponse.Status.name: api.Status.Pending,
                 api.SubmitTalkResponse.Votes.name: 0,
             }),
             rules={
