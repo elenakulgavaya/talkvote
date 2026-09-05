@@ -33,7 +33,7 @@ class Track(Enum):
 class Status(Enum):
     Approved = 'approved'
     Rejected = 'rejected'
-    Submitted = 'submitted'
+    Pending = 'pending'
 
 
 class Talk(Dictionary):

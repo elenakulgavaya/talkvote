@@ -51,7 +51,7 @@ paths:
           in: query
           schema:
             type: string
-            enum: [submitted, approved, rejected]
+            enum: [pending, approved, rejected]
         - name: sort
           in: query
           schema:

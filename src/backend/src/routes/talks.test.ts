@@ -14,7 +14,7 @@ vi.mock("../data/store.js", async () => {
       abstract: "Abstract",
       track: "qa",
       level: "beginner",
-      status: "submitted",
+      status: "pending",
       votes: 0,
       createdAt: new Date().toISOString(),
     },
@@ -95,7 +95,7 @@ describe("POST /api/talks", () => {
     const res = await request(app).post("/api/talks").send(payload);
     expect(res.status).toBe(201);
     expect(res.body.title).toBe("New Talk");
-    expect(res.body.status).toBe("submitted");
+    expect(res.body.status).toBe("pending");
     expect(res.body.votes).toBe(0);
     expect(res.body.id).toBeDefined();
   });
