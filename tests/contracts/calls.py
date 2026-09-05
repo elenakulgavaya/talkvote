@@ -41,7 +41,6 @@ class SubmitTalk(ApiCaller):
                     Pattern.DATETIME_DELIM_T_WITH_ZONE_PRECISED
                 ),
                 api.SubmitTalkResponse.Status.name: api.Status.Pending,
-                api.SubmitTalkResponse.Votes.name: 0,
             }),
             rules={
                 api.SubmitTalkResponse.Id.name: is_valid_uuid,
@@ -90,9 +89,7 @@ class Vote(ApiCaller):
                 api.ErrorResponse.Error.name: error or 'Talk not found'
             })
         else:
-            resp_body = api.VoteResponse().with_values(self.talk.value).with_values({
-                api.VoteResponse.Votes.name: self.talk.Votes.value + 1
-            })
+            resp_body = api.VoteResponse().with_values(self.talk.value)
 
         super().verify_response(error_code=error_code, resp_body=resp_body)
 
