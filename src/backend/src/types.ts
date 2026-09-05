@@ -5,7 +5,7 @@ export interface Talk {
   abstract: string;
   track: "frontend" | "backend" | "qa" | "devops";
   level: "beginner" | "intermediate" | "advanced";
-  status: "submitted" | "approved" | "rejected";
+  status: "pending" | "approved" | "rejected";
   votes: number;
   createdAt: string;
 }
