@@ -41,7 +41,8 @@ router.get("/", (req, res): void => {
     );
   }
 
-  res.json(result);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  res.json(result.map(({ votes, ...rest }) => rest));
 });
 
 router.get("/:id", (req, res): void => {
